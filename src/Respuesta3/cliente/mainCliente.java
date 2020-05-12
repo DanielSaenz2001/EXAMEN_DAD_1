@@ -8,7 +8,6 @@ package Respuesta3.cliente;
 import java.util.Scanner;
 import java.net.*;
 import java.io.*;
-import Respuesta3.cliente.Persona;
 import java.text.ParseException;
 
 
@@ -16,15 +15,11 @@ public class mainCliente {
     public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
         
-        String nombre = sc.nextLine();
-        String apellido = sc.nextLine();
-        String fecha = sc.nextLine();
+
         
-        Persona persona1 = new Persona(nombre, apellido, fecha);
+        String lista = sc.nextLine();
         
-        System.out.println(persona1.MensajeCliente());
-        
-        
+
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         Socket socket;
         
@@ -35,7 +30,7 @@ public class mainCliente {
             
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             
-            out.writeUTF(persona1.MensajeParaElServidor());
+            out.writeUTF(lista);
             
 
             out.close();

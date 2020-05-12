@@ -8,6 +8,10 @@ package Respuesta3.Servidor;
 
 import java.net.*; 
 import java.io.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Daniel-PC
@@ -29,9 +33,27 @@ public class MainServidor {
         String mensaje ="";
             
         mensaje = in.readUTF();
+        
+        String[] parts = mensaje.split("\\|");
+        
+        String nombre = parts[0];
+        String apellido = parts[1];
+        String edad = parts[2];
+ 
+         
+         
+        String date = edad;
+ 
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fechaNac = LocalDate.parse(date, fmt);
+        LocalDate ahora = LocalDate.now();
 
-        System.out.println("Recibiendo mensaje: "+mensaje);
-
+        Period periodo = Period.between(fechaNac, ahora);
+        
+        int año = periodo.getYears();
+        
+        System.out.println(" El señor(a) "+ nombre +" " + apellido + " tiene " +  año+ " años");
+        //
         socket.close();
      }
 
@@ -40,4 +62,6 @@ public class MainServidor {
         System.exit(1);
      }
   }
+    
+ 
 }
